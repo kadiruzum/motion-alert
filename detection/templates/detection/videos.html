@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Videolar</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        .video-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        .video-item {
+            flex: 1 1 calc(33.333% - 20px);
+            max-width: calc(33.333% - 20px);
+        }
+        video {
+            width: 100%;
+            height: auto;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .watch-button {
+            margin-top: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            display: block;
+            text-align: center;
+            width: 100%;
+        }
+        .select-video-button {
+            margin-top: 20px;
+            background-color: #2196F3;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            text-align: center;
+            width: 100%;
+        }
+        /* Ekranın genişliğine göre butonları hizala */
+        .button-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px; /* Butonlar arasında boşluk bırak */
+        }
+        .button-container a {
+            width: auto; /* Butonların genişliği içeriklerine göre olsun */
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h1>Yüklenen Videolar</h1>
+    <div class="video-container">
+        {% for video in videos %}
+        <div class="video-item">
+            <video controls>
+                <source src="{{ video.url }}" type="video/mp4">
+                Tarayıcınız video oynatmayı desteklemiyor.
+            </video>
+            <a href="{% url 'watch_video' video.name %}" class="watch-button">İzle</a>
+        </div>
+        {% endfor %}
+    </div>
+
+    <!-- Select Video Button -->
+    <div class="button-container">
+        <a href="{% url 'select_video' %}" class="select-video-button">Anasayfaya Dön</a>
+    </div>
+</body>
+</html>

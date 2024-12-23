@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Yükleme</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f9f9f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 400px;
+        }
+        input[type="file"] {
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .secondary-button {
+            background-color: #008CBA; /* Mavi */
+            margin-top: 10px;
+        }
+        .secondary-button:hover {
+            background-color: #007BB5;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Video Yükleme</h2>
+    <!-- Video dosyasını yüklemek için bir input alanı -->
+    <input type="file" id="videoInput" name="video" accept="video/*" required>
+    <br>
+    <button id="uploadBtn">Videoyu Gönder</button>
+    <br><br>
+    <!-- Videoları Gör Butonu -->
+    <button onclick="window.location.href='/videos/'">Videoları Gör</button>
+    <!-- Yeni Kayıt Listesi Butonu -->
+    <button class="secondary-button" onclick="window.location.href='/motions/'">Kayıt Listesi</button>
+    <p id="responseMessage"></p>
+</div>
+
+<script>
+    const uploadBtn = document.getElementById('uploadBtn');
+    const responseMessage = document.getElementById('responseMessage');
+
+    uploadBtn.addEventListener('click', async () => {
+        const videoInput = document.getElementById('videoInput');
+        const file = videoInput.files[0];
+
+        if (!file) {
+            responseMessage.textContent = "Lütfen bir video seçin.";
+            return;
+        }
+
+        const formData = new FormData();
+        formData.append('video', file);
+
+        try {
+            // Video dosyasını backend'e göndermek için AJAX isteği yapıyoruz
+            const response = await fetch('/upload_video/', {
+                method: 'POST',
+                body: formData,
+            });
+
+            if (response.ok) {
+                const result = await response.json();
+                responseMessage.textContent = "Video başarıyla yüklendi: " + result.message;
+            } else {
+                const error = await response.json();
+                responseMessage.textContent = "Video yüklenirken bir hata oluştu: " + error.error;
+            }
+        } catch (error) {
+            console.error('Hata:', error);
+            responseMessage.textContent = "Bağlantı sırasında bir hata oluştu.";
+        }
+    });
+</script>
+
+</body>
+</html>

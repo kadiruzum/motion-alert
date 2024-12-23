@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hareket Tespitleri</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #f9f9f9;
+            margin-bottom: 10px;
+            padding: 10px 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        li:nth-child(even) {
+            background-color: #f1f1f1;
+        }
+
+        a {
+            text-decoration: none;
+            color: #007BFF;
+            margin-left: 10px;
+            font-size: 14px;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .add-button {
+            display: inline-block;
+            margin: 20px auto;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .add-button:hover {
+            background-color: #45a049;
+        }
+
+        .nav-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .nav-button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+
+        .nav-button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Hareket Tespitleri</h1>
+        <ul>
+            {% for motion in motions %}
+                <li>
+                    <span>
+                        <strong>Başlangıç:</strong> {{ motion.motion_start_time }} - 
+                        <strong>Bitiş:</strong> {{ motion.motion_end_time }}
+                    </span>
+                    <span>
+                        <a href="{% url 'motion_update' motion.id %}">Güncelle</a> | 
+                        <a href="{% url 'motion_delete' motion.id %}">Sil</a>
+                    </span>
+                </li>
+            {% endfor %}
+        </ul>
+        <a class="add-button" href="{% url 'create_motion' %}">Yeni Hareket Ekle</a>
+        
+        <!-- Navigasyon Butonları -->
+        <div class="nav-buttons">
+            <a class="nav-button" href="{% url 'select_video' %}">Anasayfaya Dön</a>
+            <button class="nav-button" onclick="window.location.href='/videos/'">Videolara Dön</button>
+        </div>
+    </div>
+</body>
+</html>
