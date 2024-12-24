@@ -1,3 +1,4 @@
+#gerekli kütüphanelerin yüklenmesi
 import cv2
 from video_processor import VideoProcessor
 from rectangle_detector import RectangleDetector
