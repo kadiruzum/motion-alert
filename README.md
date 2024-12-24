@@ -1,4 +1,4 @@
-Proje Amacı
+Projenin Amacı
 
 Bu proje, izinsiz hareketlerin tespit edilmesi ve bu hareketlerin kaydedilmesi amacıyla geliştirilmiştir. Hareket algılandığında, başlangıç ve bitiş zamanları veritabanına kaydedilir. Ayrıca, belirli bir bölgeye izinsiz giriş olduğunda alarm çalar ve kullanıcıya canlı bir video akışı üzerinde alarm uyarısı gösterilir.
 
